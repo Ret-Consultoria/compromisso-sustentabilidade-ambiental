@@ -1,4 +1,7 @@
-name: CI — Markdown Lint & Link Check
+# CI — Markdown Quality & Link Integrity
+# RET Tecnologia | https://rettecnologia.org
+
+name: CI
 
 on:
   push:
@@ -14,24 +17,20 @@ jobs:
     name: 📝 Markdown Lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: DavidAnson/markdownlint-cli2-action@v19
+      - uses: actions/checkout@v6
+
+      - uses: DavidAnson/markdownlint-cli2-action@v22
         with:
           globs: '**/*.md'
-          config: |
-            {
-              "MD013": false,
-              "MD033": false,
-              "MD041": false,
-              "MD024": false
-            }
 
   link-check:
     name: 🔗 Link Check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: lycheeverse/lychee-action@v2
+      - uses: actions/checkout@v6
+
+      - name: Lychee Link Checker
+        uses: lycheeverse/lychee-action@v2
         with:
           args: --verbose --no-progress '**/*.md'
           fail: false
